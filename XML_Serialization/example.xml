@@ -1,12 +1,18 @@
 ﻿<Gra.Ruch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/GraZaDuzoZaMalo.Model">
-  <Czas>2021-01-30T09:09:21.3844183+01:00</Czas>
-  <Liczba>66</Liczba>
+  <Czas>2021-01-30T11:37:49.1021496+01:00</Czas>
+  <Liczba>12</Liczba>
   <StatusGry>WTrakcie</StatusGry>
-  <Wynik>ZaDuzo</Wynik>
+  <Wynik>ZaMalo</Wynik>
 </Gra.Ruch>
 <Gra.Ruch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/GraZaDuzoZaMalo.Model">
-  <Czas>2021-01-30T09:09:22.1700213+01:00</Czas>
-  <Liczba>77</Liczba>
+  <Czas>2021-01-30T11:37:49.9558689+01:00</Czas>
+  <Liczba>13</Liczba>
   <StatusGry>WTrakcie</StatusGry>
-  <Wynik>ZaDuzo</Wynik>
+  <Wynik>ZaMalo</Wynik>
+</Gra.Ruch>
+<Gra.Ruch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/GraZaDuzoZaMalo.Model">
+  <Czas>2021-01-30T11:37:50.8598677+01:00</Czas>
+  <Liczba>14</Liczba>
+  <StatusGry>WTrakcie</StatusGry>
+  <Wynik>ZaMalo</Wynik>
 </Gra.Ruch>

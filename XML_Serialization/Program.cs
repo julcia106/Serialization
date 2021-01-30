@@ -23,13 +23,12 @@ namespace AppGraZaDuzoZaMaloCLI
 
             Gra.Ruch p = (Gra.Ruch)dcs.ReadObject(xdr);
 
+            Console.WriteLine(String.Format("{0} {1} {2}, {3}",
+                p.Czas, p.Liczba, p.StatusGry, p.Wynik ));
+
+
             xdr.Close();
             fs.Close();
-
-            Console.WriteLine(String.Format("{0} {1} {2}, {3}",
-                p.Czas, p.Liczba, p.StatusGry, p.Wynik
-                ));
-
 #endif
         }
 

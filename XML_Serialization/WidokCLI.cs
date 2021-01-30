@@ -107,7 +107,8 @@ namespace AppGraZaDuzoZaMaloCLI
                 ConformanceLevel= ConformanceLevel.Fragment,
             };
 
-             XmlWriter xdw = XmlWriter.Create(stream, settings);
+            XmlWriter xdw = XmlWriter.Create(stream, settings);
+
             DataContractSerializer dcs = new DataContractSerializer(typeof(Gra.Ruch));
 
             foreach (var ruch in kontroler.ListaRuchow)
