@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace GraZaDuzoZaMalo.Model
 {
@@ -43,7 +45,6 @@ namespace GraZaDuzoZaMalo.Model
     /// </para>
     /// </remarks>
 
-    [Serializable]
     public class Gra
     {
         /// <summary>
@@ -62,9 +63,7 @@ namespace GraZaDuzoZaMalo.Model
         /// </value>
         public int MinLiczbaDoOdgadniecia { get; } = 1;
 
-
         readonly private int liczbaDoOdgadniecia;
-
 
         /// <summary>
         /// Typ wyliczeniowy opisujący możliwe statusy gry.
@@ -92,9 +91,7 @@ namespace GraZaDuzoZaMalo.Model
         /// </remarks>
         public Status StatusGry { get; private set; }
 
-
         private List<Ruch> listaRuchow;
-
         public IReadOnlyList<Ruch> ListaRuchow { get { return listaRuchow.AsReadOnly(); } }
 
         /// <summary>
@@ -124,7 +121,6 @@ namespace GraZaDuzoZaMalo.Model
 
             listaRuchow = new List<Ruch>();
         }
-
         public Gra() : this(1, 100) { }
 
 
@@ -178,13 +174,20 @@ namespace GraZaDuzoZaMalo.Model
             ZaDuzo = 1
         };
 
-        [Serializable]
+        [DataContract]
         public class Ruch
         {
-            public int? Liczba { get; }
-            public Odpowiedz? Wynik { get; }
-            public Status StatusGry { get; }
-            public DateTime Czas { get; }
+            [DataMember]
+            public int? Liczba { get; private set; }
+
+            [DataMember]
+            public Odpowiedz? Wynik { get; private set; }
+
+            [DataMember]
+            public Status StatusGry { get; private set; }
+
+            [DataMember]
+            public DateTime Czas { get; private set; }
 
             public Ruch(int? propozycja, Odpowiedz? odp, Status statusGry)
             {
@@ -202,6 +205,20 @@ namespace GraZaDuzoZaMalo.Model
             }
         }
 
+        //[CollectionDataContract(Name ="Czas", ItemName ="bet", Namespace = "")]
+        //public class Bets : List<string>
+        //{
+        //    public List<decimal> BetList
+        //    {
+        //        get
+        //        {
+        //            return ConvertAll(y => decimal.Parse(y, System.Globalization.NumberStyles.Currency));
+        //        }
+        //    }
+        //}
+
+        //[CollectionDataContract(Name = "games", Namespace = "")]
+        //public class Games : List<Ruch> { }
 
     }
 }

@@ -1,9 +1,10 @@
-﻿#define NORMAL
+﻿//#define NORMAL
 using GraZaDuzoZaMalo.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace AppGraZaDuzoZaMaloCLI
 {
@@ -14,24 +15,22 @@ namespace AppGraZaDuzoZaMaloCLI
 #if NORMAL
             (new KontrolerCLI()).Uruchom();
 #else
+            const string fileName = "C:/Users/Julia/source/repos/Serialization/XML_Serialization/example.xml";
+            FileStream fs = new FileStream(fileName, FileMode.Open);
 
-            BinaryFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("C:/Users/Julia/source/repos/Serialization/XML_Serialization/example.txt", FileMode.Open, FileAccess.Read);
+            DataContractSerializer dcs = new DataContractSerializer(typeof(Gra.Ruch));
 
-            //Deserialize- first method---------------
-            //int length = (int)formatter.Deserialize(stream);
-            //List<Gra.Ruch> tab = new List<Gra.Ruch>(length);
-            //for (int i = 0; i < length; i++)
-            //{
-            //    tab.Add((Gra.Ruch)formatter.Deserialize(stream));
-            //}
-            //-------------------------------------------
+            XmlDictionaryReader xdr = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
 
-            //Deserialize- second method--------------
-            IReadOnlyList<Gra.Ruch> tab = formatter.Deserialize(stream) as IReadOnlyList<Gra.Ruch>;
-            //--------------------------------------
+            Gra.Ruch p = (Gra.Ruch)dcs.ReadObject(xdr);
 
-            Console.ReadKey();
+            xdr.Close();
+            fs.Close();
+
+            Console.WriteLine(String.Format("{0} {1} {2}, {3}",
+                p.Czas, p.Liczba, p.StatusGry, p.Wynik
+                ));
+
 #endif
         }
 

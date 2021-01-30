@@ -1,9 +1,12 @@
-﻿using System;
+﻿using GraZaDuzoZaMalo.Model;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using static System.Console;
+using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
+using static System.Console;
 
 
 namespace AppGraZaDuzoZaMaloCLI
@@ -97,28 +100,36 @@ namespace AppGraZaDuzoZaMaloCLI
 
         public void SerializeControler()
         {
+            const string fileName = "C:/Users/Julia/source/repos/Serialization/XML_Serialization/example.xml";
+            FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
 
-            Stream stream = new FileStream("C:/Users/Julia/source/repos/Serialization/XML_Serialization/example.txt", FileMode.Create, FileAccess.ReadWrite);
-            XmlSerializer formatter = new XmlSerializer(typeof(KontrolerCLI));
-            formatter.Serialize(stream, kontroler.ListaRuchow);
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,
+                NewLineOnAttributes = true,
+                ConformanceLevel= ConformanceLevel.Fragment,
+            };
 
-            //Stream stream = new FileStream("C:/Users/Julia/source/repos/Serialization/XML_Serialization/example.txt", FileMode.Create, FileAccess.ReadWrite); //relatywna
-            //IFormatter formatter = new BinaryFormatter();
+             XmlWriter xdw = XmlWriter.Create(stream, settings);
+            DataContractSerializer dcs = new DataContractSerializer(typeof(Gra.Ruch));
 
+            //xdw.WriteStartDocument(true);
 
-            //////Serialize- first method-----
-            ////formatter.Serialize(stream, kontroler.ListaRuchow.Count);
-            ////foreach (var ruch in kontroler.ListaRuchow)
-            ////{
-            ////    formatter.Serialize(stream, ruch);
-            ////}
-            ////------------------------------------
+            //dcs.WriteStartObject(xdw, kontroler.ListaRuchow);
+            //dcs.WriteObjectContent(xdw, kontroler.ListaRuchow.Count);
 
-            ////Serialize- second method----------
-            //formatter.Serialize(stream, kontroler.ListaRuchow);
-            ////-----------------------------------
+            foreach (var ruch in kontroler.ListaRuchow)
+            {
+                dcs.WriteObject(xdw, ruch);
+            }
 
-            //stream.Close();
+            //dcs.WriteEndObject(xdw);
+
+            //xdw.WriteEndDocument();
+
+            xdw.Flush();
+            stream.Flush();
+            stream.Close();
         }
         public void KomunikatZaDuzo()
         {

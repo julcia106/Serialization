@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using static GraZaDuzoZaMalo.Model.Gra.Odpowiedz;
+using System.Xml.Serialization;
 
 namespace AppGraZaDuzoZaMaloCLI
 {
@@ -16,7 +17,6 @@ namespace AppGraZaDuzoZaMaloCLI
 
         public int MinZakres { get; private set; } = 1;
         public int MaxZakres { get; private set; } = 100;
-
         public IReadOnlyList<Gra.Ruch> ListaRuchow
         {
             get

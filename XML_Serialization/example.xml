@@ -1,0 +1,12 @@
+﻿<Gra.Ruch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/GraZaDuzoZaMalo.Model">
+  <Czas>2021-01-30T09:09:21.3844183+01:00</Czas>
+  <Liczba>66</Liczba>
+  <StatusGry>WTrakcie</StatusGry>
+  <Wynik>ZaDuzo</Wynik>
+</Gra.Ruch>
+<Gra.Ruch xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/GraZaDuzoZaMalo.Model">
+  <Czas>2021-01-30T09:09:22.1700213+01:00</Czas>
+  <Liczba>77</Liczba>
+  <StatusGry>WTrakcie</StatusGry>
+  <Wynik>ZaDuzo</Wynik>
+</Gra.Ruch>
