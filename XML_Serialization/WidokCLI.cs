@@ -1,11 +1,8 @@
 ﻿using GraZaDuzoZaMalo.Model;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 using static System.Console;
 
 
@@ -113,19 +110,10 @@ namespace AppGraZaDuzoZaMaloCLI
              XmlWriter xdw = XmlWriter.Create(stream, settings);
             DataContractSerializer dcs = new DataContractSerializer(typeof(Gra.Ruch));
 
-            //xdw.WriteStartDocument(true);
-
-            //dcs.WriteStartObject(xdw, kontroler.ListaRuchow);
-            //dcs.WriteObjectContent(xdw, kontroler.ListaRuchow.Count);
-
             foreach (var ruch in kontroler.ListaRuchow)
             {
                 dcs.WriteObject(xdw, ruch);
             }
-
-            //dcs.WriteEndObject(xdw);
-
-            //xdw.WriteEndDocument();
 
             xdw.Flush();
             stream.Flush();

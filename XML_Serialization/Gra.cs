@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace GraZaDuzoZaMalo.Model
 {
@@ -204,21 +203,5 @@ namespace GraZaDuzoZaMalo.Model
                 return $"({Liczba}, {Wynik}, {Czas}, {StatusGry})";
             }
         }
-
-        //[CollectionDataContract(Name ="Czas", ItemName ="bet", Namespace = "")]
-        //public class Bets : List<string>
-        //{
-        //    public List<decimal> BetList
-        //    {
-        //        get
-        //        {
-        //            return ConvertAll(y => decimal.Parse(y, System.Globalization.NumberStyles.Currency));
-        //        }
-        //    }
-        //}
-
-        //[CollectionDataContract(Name = "games", Namespace = "")]
-        //public class Games : List<Ruch> { }
-
     }
 }

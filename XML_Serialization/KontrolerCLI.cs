@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using static GraZaDuzoZaMalo.Model.Gra.Odpowiedz;
-using System.Xml.Serialization;
 
 namespace AppGraZaDuzoZaMaloCLI
 {
