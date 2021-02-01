@@ -188,6 +188,14 @@ namespace GraZaDuzoZaMalo.Model
             [DataMember]
             public DateTime Czas { get; private set; }
 
+            //// This method is called after the object
+            //// is completely deserialized. Use it instead of the
+            //// constructror.
+            [OnDeserialized]
+            void OnDeserialized(StreamingContext context)
+            {
+                
+            }
             public Ruch(int? propozycja, Odpowiedz? odp, Status statusGry)
             {
                 this.Liczba = propozycja;

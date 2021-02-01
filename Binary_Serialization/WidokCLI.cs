@@ -96,19 +96,21 @@ namespace AppGraZaDuzoZaMaloCLI
 
         public void SerializeControler()
         {
-            Stream stream = new FileStream("C:/Users/Julia/source/repos/Serialization/Binary_Serialization/example.txt", FileMode.Create, FileAccess.ReadWrite); //relatywna
+            const string FileName = "C:/Users/Julia/source/repos/Serialization/Binary_Serialization/example.txt"; 
+
+            Stream stream = new FileStream(FileName, FileMode.Create, FileAccess.ReadWrite);
             IFormatter formatter = new BinaryFormatter();
 
             ////Serialize- first method-----
-            //formatter.Serialize(stream, kontroler.ListaRuchow.Count);
-            //foreach (var ruch in kontroler.ListaRuchow)
-            //{
-            //    formatter.Serialize(stream, ruch);
-            //}
+            formatter.Serialize(stream, kontroler.ListaRuchow.Count);
+            foreach (var ruch in kontroler.ListaRuchow)
+            {
+                formatter.Serialize(stream, ruch);
+            }
             //------------------------------------
 
             //Serialize- second method----------
-            formatter.Serialize(stream, kontroler.ListaRuchow);
+            //formatter.Serialize(stream, kontroler.ListaRuchow);
             //-----------------------------------
 
             stream.Close();

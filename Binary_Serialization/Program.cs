@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 
 namespace AppGraZaDuzoZaMaloCLI
 {
@@ -15,23 +16,30 @@ namespace AppGraZaDuzoZaMaloCLI
             (new KontrolerCLI()).Uruchom();
 #else
 
-            BinaryFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("C:/Users/Julia/source/repos/Serialization/Binary_Serialization/example.txt", FileMode.Open, FileAccess.Read);
+            const string FileName = "C:/Users/Julia/source/repos/Serialization/Binary_Serialization/example.txt";
 
-            //Deserialize- first method---------------
-            int length = (int)formatter.Deserialize(stream);
-            List<Gra.Ruch> tab = new List<Gra.Ruch>(length);
-            for (int i = 0; i < length; i++)
+            if (File.Exists(FileName))
             {
-                tab.Add((Gra.Ruch)formatter.Deserialize(stream));
+                Console.WriteLine("Reading saved file");
+                Stream openFileStream = File.OpenRead(FileName);
+                BinaryFormatter deserializer = new BinaryFormatter();
+
+                //Deserialize- first method---------------
+                int length = (int)deserializer.Deserialize(openFileStream);
+                List<Gra.Ruch> tab = new List<Gra.Ruch>(length);
+                for (int i = 0; i < length; i++)
+                {
+                    tab.Add((Gra.Ruch)deserializer.Deserialize(openFileStream));
+                }
+                //-------------------------------------------
+                //Deserialize- second method--------------
+                //IReadOnlyList<Gra.Ruch> tab = deserializer.Deserialize(openFileStream) as IReadOnlyList<Gra.Ruch>;
+                //--------------------------------------
+
+                openFileStream.Close();
             }
-            //-------------------------------------------
-
-            //Deserialize- second method--------------
-            //IReadOnlyList<Gra.Ruch> tab = formatter.Deserialize(stream) as IReadOnlyList<Gra.Ruch>;
-            //--------------------------------------
-
-            Console.ReadKey();
+            else
+                throw new FileNotFoundException();
 #endif
         }
 

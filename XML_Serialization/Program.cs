@@ -14,21 +14,28 @@ namespace AppGraZaDuzoZaMaloCLI
 #if NORMAL
             (new KontrolerCLI()).Uruchom();
 #else
-            const string fileName = "C:/Users/Julia/source/repos/Serialization/XML_Serialization/example.xml";
-            FileStream fs = new FileStream(fileName, FileMode.Open);
+            const string FileName = "C:/Users/Julia/source/repos/Serialization/XML_Serialization/example.xml";
 
-            DataContractSerializer dcs = new DataContractSerializer(typeof(Gra.Ruch));
+            if (File.Exists(FileName))
+            {
+                Console.WriteLine("Reading saved file");
+                Stream fs = File.OpenRead(FileName);
 
-            XmlDictionaryReader xdr = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+                DataContractSerializer dcs = new DataContractSerializer(typeof(Gra.Ruch));
 
-            Gra.Ruch p = (Gra.Ruch)dcs.ReadObject(xdr);
+                XmlDictionaryReader xdr = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
 
-            Console.WriteLine(String.Format("{0} {1} {2}, {3}",
-                p.Czas, p.Liczba, p.StatusGry, p.Wynik ));
+                Gra.Ruch p = (Gra.Ruch)dcs.ReadObject(xdr);
+
+                Console.WriteLine(String.Format("{0}, {1}, {2}, {3}",
+                    p.Czas, p.Liczba, p.StatusGry, p.Wynik));
 
 
-            xdr.Close();
-            fs.Close();
+                xdr.Close();
+                fs.Close();
+            }
+            else
+                throw new FileNotFoundException();
 #endif
         }
 
