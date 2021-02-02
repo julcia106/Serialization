@@ -120,6 +120,7 @@ namespace AppGraZaDuzoZaMaloCLI
             stream.Flush();
             stream.Close();
         }
+
         public void KomunikatZaDuzo()
         {
             Console.ForegroundColor = ConsoleColor.Red;
