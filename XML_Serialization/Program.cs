@@ -1,4 +1,4 @@
-﻿#define NORMAL
+﻿//#define NORMAL
 using GraZaDuzoZaMalo.Model;
 using System;
 using System.IO;
@@ -53,7 +53,7 @@ namespace AppGraZaDuzoZaMaloCLI
                 xmlDoc.Load(FileName);
 
                 // Encrypt the "Liczba" element.
-                Encrypt(xmlDoc, "Liczba", key);
+                Encrypt(xmlDoc, "Gra.Ruch", key);
 
                 Console.WriteLine("The element was encrypted");
 

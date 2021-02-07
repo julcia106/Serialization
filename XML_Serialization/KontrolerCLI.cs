@@ -16,6 +16,7 @@ namespace AppGraZaDuzoZaMaloCLI
 
         public int MinZakres { get; private set; } = 1;
         public int MaxZakres { get; private set; } = 100;
+
         public IReadOnlyList<Gra.Ruch> ListaRuchow
         {
             get

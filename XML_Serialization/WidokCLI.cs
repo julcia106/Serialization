@@ -84,7 +84,7 @@ namespace AppGraZaDuzoZaMaloCLI
                 WriteLine("--- pusto ---");
                 return;
             }
-
+            
             WriteLine("Nr    Propozycja     Odpowiedź     Czas    Status");
             WriteLine("=================================================");
             int i = 1;
@@ -111,10 +111,15 @@ namespace AppGraZaDuzoZaMaloCLI
 
             DataContractSerializer dcs = new DataContractSerializer(typeof(Gra.Ruch));
 
+            var startRoot = "<root>";
+            dcs.WriteStartObject(xdw, startRoot);
+
             foreach (var ruch in kontroler.ListaRuchow)
             {
                 dcs.WriteObject(xdw, ruch);
             }
+
+            dcs.WriteEndObject(xdw);
 
             xdw.Flush();
             stream.Flush();
