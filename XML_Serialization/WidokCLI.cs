@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
+using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 using static System.Console;
 
 
@@ -124,6 +126,112 @@ namespace AppGraZaDuzoZaMaloCLI
             xdw.Flush();
             stream.Flush();
             stream.Close();
+
+            Aes key = null;
+
+            try
+            {
+                // Create a new AES key.
+                key = Aes.Create();
+
+                // Load an XML document.
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.PreserveWhitespace = true;
+                xmlDoc.Load(fileName);
+
+                // Encrypt the Gra.Ruch elements.
+                Encrypt(xmlDoc, "Gra.Ruch", key);
+
+                Console.WriteLine();
+                Console.WriteLine("The element was encrypted in example.xml\n");
+
+                Console.WriteLine(xmlDoc.InnerXml);
+
+                xmlDoc.Save(fileName);
+
+                Decrypt(xmlDoc, key);
+
+                Console.WriteLine();
+                Console.WriteLine("The element was decrypted\n");
+
+                Console.WriteLine(xmlDoc.InnerXml);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                // Clear the key.
+                if (key != null)
+                {
+                    key.Clear();
+                }
+            }
+        }
+
+        public static void Encrypt(XmlDocument Doc, string ElementName, SymmetricAlgorithm Key)
+        {
+            if (Doc == null)
+                throw new ArgumentNullException("Doc");
+            if (ElementName == null)
+                throw new ArgumentNullException("ElementToEncrypt");
+            if (Key == null)
+                throw new ArgumentNullException("Alg");
+
+            XmlElement elementToEncrypt = Doc.GetElementsByTagName(ElementName)[0] as XmlElement;
+
+            if (elementToEncrypt == null)
+            {
+                throw new XmlException("The specified element was not found");
+            }
+
+            EncryptedXml eXml = new EncryptedXml();
+
+            byte[] encryptedElement = eXml.EncryptData(elementToEncrypt, Key, false);
+
+            EncryptedData edElement = new EncryptedData();
+            edElement.Type = EncryptedXml.XmlEncElementUrl;
+
+            string encryptionMethod = null;
+
+            if (Key is Aes)
+            {
+                encryptionMethod = EncryptedXml.XmlEncAES256Url;
+            }
+            else
+            {
+                throw new CryptographicException("The specified algorithm is not supported or not recommended for XML Encryption.");
+            }
+
+            edElement.EncryptionMethod = new EncryptionMethod(encryptionMethod);
+            edElement.CipherData.CipherValue = encryptedElement;
+
+            EncryptedXml.ReplaceElement(elementToEncrypt, edElement, false);
+        }
+
+        public static void Decrypt(XmlDocument Doc, SymmetricAlgorithm Alg)
+        {
+            if (Doc == null)
+                throw new ArgumentNullException("Doc");
+            if (Alg == null)
+                throw new ArgumentNullException("Alg");
+
+            XmlElement encryptedElement = Doc.GetElementsByTagName("EncryptedData")[0] as XmlElement;
+
+            if (encryptedElement == null)
+            {
+                throw new XmlException("The EncryptedData element was not found.");
+            }
+
+            EncryptedData edElement = new EncryptedData();
+            edElement.LoadXml(encryptedElement);
+
+            EncryptedXml exml = new EncryptedXml();
+
+            byte[] rgbOutput = exml.DecryptData(edElement, Alg);
+
+            exml.ReplaceData(encryptedElement, rgbOutput);
         }
 
         public void KomunikatZaDuzo()
