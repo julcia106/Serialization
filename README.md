@@ -1,9 +1,6 @@
-# Serialization
-
 # Gra w "Za dużo, za mało" - dodanie funkcjonalności
 
-* Autor: _Krzysztof Molenda_
-* Wersja: 2019-12-10
+* Autor treści zadania: _Krzysztof Molenda_
 
 Celem ćwiczenia jest nabycie umiejętności w czytaniu (ze zrozumieniem) obcego kodu, wprowadzanie w nim korekt z zachowaniem istniejącej funkcjonalności oraz dodanie nowych funkcjonalności.
 
